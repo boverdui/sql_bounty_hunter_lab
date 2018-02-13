@@ -20,18 +20,18 @@ class Bounty
         host: 'localhost'
       }
     )
-    sql = "INSERT INTO bounty
-    (
-      name,
-      bounty_value,
-      danger_level,
-      favourite_weapon
-    ) VALUES
-    (
-      $1, $2, $3, $4
-    )
-      RETURNING *
-    ;
+    sql = "
+      INSERT INTO bounty
+      (
+        name,
+        bounty_value,
+        danger_level,
+        favourite_weapon
+      ) VALUES
+      (
+        $1, $2, $3, $4
+      )
+      RETURNING *;
     "
     values = [@name, @bounty_value, @danger_level, @favourite_weapon]
     db.prepare("save", sql)
@@ -46,7 +46,7 @@ class Bounty
         host: 'localhost'
       }
     )
-    sql = "DELETE FROM bounty WHERE id = $1"
+    sql = "DELETE FROM bounty WHERE id = $1;"
     values = [@id]
     db.prepare("delete_one", sql)
     db.exec_prepared("delete_one", values)
@@ -60,7 +60,8 @@ class Bounty
         host: 'localhost'
       }
     )
-    sql = "UPDATE bounty
+    sql = "
+      UPDATE bounty
       SET
       (
         name,
@@ -72,7 +73,7 @@ class Bounty
         $1, $2, $3, $4
       )
       WHERE id = $5
-      "
+    "
     values = [@name, @bounty_value, @danger_level, @favourite_weapon, @id]
     db.prepare("update", sql)
     db.exec_prepared("update", values)
@@ -86,7 +87,7 @@ class Bounty
         host: 'localhost'
       }
     )
-    sql = "SELECT * FROM bounty WHERE id = $1"
+    sql = "SELECT * FROM bounty WHERE id = $1;"
     values = [id]
     db.prepare("find", sql)
     bounties = db.exec_prepared("find", values)
@@ -101,7 +102,7 @@ class Bounty
         host: 'localhost'
       }
     )
-    sql = "SELECT * FROM bounty"
+    sql = "SELECT * FROM bounty;"
     values = []
     db.prepare("all", sql)
     bounties = db.exec_prepared("all", values)
@@ -116,7 +117,7 @@ class Bounty
         host: 'localhost'
       }
     )
-    sql = "DELETE FROM bounty"
+    sql = "DELETE FROM bounty;"
     values = []
     db.prepare("delete_all", sql)
     bounties = db.exec_prepared("delete_all", values)
