@@ -20,8 +20,8 @@ class Bounty
         host: 'localhost'
       }
     )
-    sql = "
-      INSERT INTO bounty
+    sql =
+      "INSERT INTO bounty
       (
         name,
         bounty_value,
@@ -31,8 +31,7 @@ class Bounty
       (
         $1, $2, $3, $4
       )
-      RETURNING *;
-    "
+      RETURNING *;"
     values = [@name, @bounty_value, @danger_level, @favourite_weapon]
     db.prepare("save", sql)
     @id = db.exec_prepared("save", values)[0]['id'].to_i
@@ -60,8 +59,8 @@ class Bounty
         host: 'localhost'
       }
     )
-    sql = "
-      UPDATE bounty
+    sql =
+    "UPDATE bounty
       SET
       (
         name,
@@ -72,8 +71,7 @@ class Bounty
       (
         $1, $2, $3, $4
       )
-      WHERE id = $5
-    "
+      WHERE id = $5"
     values = [@name, @bounty_value, @danger_level, @favourite_weapon, @id]
     db.prepare("update", sql)
     db.exec_prepared("update", values)
